@@ -4,6 +4,15 @@
 # In[1]:
 
 
+#Homework 1
+#Name : Abrar Altaay
+#ID: 801166376
+# https://github.com/aaltaay1/Intro-to-Machine-Learning.git
+
+
+# In[2]:
+
+
 from torchvision import models
 import torch
 
@@ -12,7 +21,7 @@ import pandas as pd
 import matplotlib.pyplot as plt  
 
 
-# In[2]:
+# In[3]:
 
 
 from PIL import Image
@@ -36,7 +45,7 @@ blue3 = Image.open("blue-3.jpg")
 blue4 = Image.open("blue-4.jpg")
 
 
-# In[3]:
+# In[4]:
 
 
 from torchvision import transforms
@@ -62,7 +71,7 @@ blue3_t = transform(blue3)
 blue4_t = transform(blue4)
 
 
-# In[4]:
+# In[5]:
 
 
 #Red Mean
@@ -84,7 +93,7 @@ blue3_data = torch.mean(blue3_t, dim=[1,2])
 blue4_data = torch.mean(blue4_t, dim=[1,2])
 
 
-# In[5]:
+# In[6]:
 
 
 print('Red 1 = ' , red1_data)
@@ -105,7 +114,7 @@ print('Blue 3 = ', blue3_data)
 print('Blue 4 = ', blue4_data)
 
 
-# In[6]:
+# In[7]:
 
 
 ################################
@@ -115,7 +124,7 @@ print('Blue 4 = ', blue4_data)
 ################################
 
 
-# In[7]:
+# In[8]:
 
 
 t_c = [0.5, 14.0, 15.0, 28.0, 11.0, 8.0, 3.0, -4.0, 6.0, 13.0, 21.0]
@@ -127,7 +136,7 @@ def model(t_u, w1, w2, b):
     return w2 * t_u ** 2 + w1 * t_u + b
 
 
-# In[8]:
+# In[9]:
 
 
 w1 = torch.ones(())
@@ -138,7 +147,7 @@ t_p = model(t_u, w1, w2, b)
 t_p
 
 
-# In[9]:
+# In[10]:
 
 
 def loss_fn(t_p, t_c):
@@ -146,14 +155,14 @@ def loss_fn(t_p, t_c):
     return squared_diffs.mean()
 
 
-# In[10]:
+# In[11]:
 
 
 loss = loss_fn(t_p, t_c)
 loss
 
 
-# In[11]:
+# In[12]:
 
 
 def dloss_fn(t_p, t_c):
@@ -161,28 +170,28 @@ def dloss_fn(t_p, t_c):
     return dsq_diffs
 
 
-# In[12]:
+# In[13]:
 
 
 def dmodel_dw1(t_u, w1,w2,b):
     return t_u
 
 
-# In[13]:
+# In[14]:
 
 
 def dmodel_dw2(t_u, w1,w2,b):
     return t_u**2
 
 
-# In[14]:
+# In[15]:
 
 
 def dmodel_db(t_u, w1,w2,b):
     return 1.0
 
 
-# In[15]:
+# In[16]:
 
 
 def grad_fn(t_u, t_c, t_p, w1, w2, b):
@@ -193,7 +202,7 @@ def grad_fn(t_u, t_c, t_p, w1, w2, b):
     return torch.stack([dloss_dw1.sum(),dloss_dw2.sum(), dloss_db.sum()])
 
 
-# In[16]:
+# In[17]:
 
 
 def training_loop(n_epochs, learning_rate, params, t_u, t_c):
@@ -211,14 +220,14 @@ def training_loop(n_epochs, learning_rate, params, t_u, t_c):
     return params
 
 
-# In[17]:
+# In[18]:
 
 
 #Normalizing
 t_un = 0.1 * t_u
 
 
-# In[18]:
+# In[19]:
 
 
 params = training_loop(
@@ -229,7 +238,7 @@ t_u = t_un,
 t_c = t_c)
 
 
-# In[19]:
+# In[20]:
 
 
 params = training_loop(
@@ -240,7 +249,7 @@ t_u = t_un,
 t_c = t_c)
 
 
-# In[20]:
+# In[21]:
 
 
 params = training_loop(
@@ -251,7 +260,7 @@ t_u = t_un,
 t_c = t_c)
 
 
-# In[21]:
+# In[22]:
 
 
 params = training_loop(
@@ -262,7 +271,7 @@ t_u = t_un,
 t_c = t_c)
 
 
-# In[22]:
+# In[23]:
 
 
 get_ipython().run_line_magic('matplotlib', 'inline')
@@ -276,7 +285,7 @@ plt.plot(t_u.numpy(), t_c.numpy(), 'o')
 plt.grid()
 
 
-# In[23]:
+# In[24]:
 
 
 ################################
@@ -286,7 +295,7 @@ plt.grid()
 ################################
 
 
-# In[24]:
+# In[25]:
 
 
 import pandas as pd
@@ -295,14 +304,14 @@ housing = pd.DataFrame(pd.read_csv("Housing.csv"))
 housing.head() 
 
 
-# In[25]:
+# In[26]:
 
 
 m = len(housing) 
 m 
 
 
-# In[26]:
+# In[27]:
 
 
 num_vars = ['area', 'bedrooms', 'bathrooms', 'stories', 'parking','price'] 
@@ -310,7 +319,7 @@ Newtrain = housing[num_vars]
 Newtrain.head() 
 
 
-# In[27]:
+# In[28]:
 
 
 #create tesnor
@@ -322,7 +331,7 @@ t_parking = torch.tensor(Newtrain['parking'])
 t_price = torch.tensor(Newtrain['price'])
 
 
-# In[28]:
+# In[29]:
 
 
 #Normalize data
@@ -333,26 +342,26 @@ n_stories = t_stories / max(Newtrain['stories'])
 n_parking = t_parking / max(Newtrain['parking'])
 
 
-# In[29]:
+# In[30]:
 
 
 def model(t_area, t_bedrooms, t_bathrooms, t_stories, t_parking, w1, w2, w3, w4, w5, b):
     return (w5*t_parking) + (w4*t_stories) + (w3*t_bathrooms) + (w2*t_bedrooms) + (w1*t_area) + b
 
 
-# In[30]:
+# In[31]:
 
 
 params = torch.tensor([1.0,1.0,1.0,1.0,1.0,0.0], requires_grad=True)
 
 
-# In[31]:
+# In[32]:
 
 
 params.grad is None
 
 
-# In[32]:
+# In[33]:
 
 
 loss = loss_fn(model(t_area, t_bedrooms, t_bathrooms, t_stories, t_parking, *params), t_price)
@@ -360,14 +369,14 @@ loss.backward()
 params.grad
 
 
-# In[33]:
+# In[34]:
 
 
 if params.grad is not None:
     params.grad.zero_()
 
 
-# In[34]:
+# In[35]:
 
 
 def training_loop(n_epochs, learning_rate, params, t_area, t_bedrooms, t_bathrooms, t_stories, t_parking, t_price):
@@ -388,7 +397,7 @@ def training_loop(n_epochs, learning_rate, params, t_area, t_bedrooms, t_bathroo
     return params
 
 
-# In[35]:
+# In[36]:
 
 
 params = training_loop(
@@ -403,7 +412,7 @@ params = training_loop(
     t_price = t_price)
 
 
-# In[36]:
+# In[37]:
 
 
 get_ipython().run_line_magic('matplotlib', 'inline')
